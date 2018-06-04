@@ -27,7 +27,7 @@ public class Cliente {
         }
         IP = ip;
         longitudArchivo = (int)fragmento.getSize();
-        datos = new Paquete(456,archivoOriginal.hashCode(),123);
+        datos = new Paquete(0,archivoOriginal.hashCode(),123);
         longitudMaximaPaquete = datos.getLongitudMaximoPaquete();
         de = 0;
     }
@@ -50,6 +50,7 @@ public class Cliente {
             if(hasta > longitudArchivo){
                 System.out.println("Solo se enviara un paquete !!");
                 setPaquete(de,hasta);
+                datos.setPaquteFinal(1);
                 salida.write(datos.castByteArray());
                 salida.flush();
             }else{
@@ -57,8 +58,9 @@ public class Cliente {
                 while (segmentarEnPaquetes){
                     System.out.println("de "+de+" hasta "+hasta);
                     setPaquete(de,hasta);
+                    datos.setPaquteFinal(0);
                     salida.write(datos.castByteArray());
-                    salida.flush();
+                    //salida.flush();
                     de = hasta;
                     if((hasta + longitudMaximaPaquete) > longitudArchivo){
                         hasta = longitudArchivo;
@@ -67,9 +69,12 @@ public class Cliente {
                 }
                 System.out.println("de "+de+" hasta "+hasta);
                 setPaquete(de,hasta);
+                datos.setPaquteFinal(1);
                 salida.write(datos.castByteArray());
-                salida.flush();
+
+                //salida.flush();
             }
+            salida.flush();
             salida.close();
             conexionServidor.close();
 

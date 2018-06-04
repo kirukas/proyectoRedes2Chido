@@ -6,8 +6,9 @@ public class Paquete  extends Trama{
 
     private final static  int sizeInt = Integer.BYTES;
 
-    private final static int sizeCabecera = 4*sizeInt;
+    private final static int sizeCabecera = 5*sizeInt;
     private  int longitudPaquete;/// en bytes
+    private  int paquteFinal;
     private byte[] datos;
 
     public  Paquete(int tipoTrama, int hashCode, int worker ){
@@ -23,6 +24,7 @@ public class Paquete  extends Trama{
         setHashCode(ByteBuffer.wrap(byteArray,sizeInt,2*sizeInt).getInt());
         setWorker(ByteBuffer.wrap(byteArray,2*sizeInt,3*sizeInt).getInt());
         setLongitudPaquete(ByteBuffer.wrap(byteArray,3*sizeInt,4*sizeInt).getInt());
+        setPaquteFinal (ByteBuffer.wrap(byteArray,4*sizeInt,5*sizeInt).getInt());
         datos = new byte[super.getLongitudTrama() - sizeCabecera];
         System.arraycopy(byteArray,sizeCabecera,datos,0,getLongitudPaquete());
         setDatos(datos);
@@ -36,6 +38,7 @@ public class Paquete  extends Trama{
         ByteBuffer.wrap(ArrayRaw,sizeInt,2*sizeInt).putInt(super.getHashCode());
         ByteBuffer.wrap(ArrayRaw,2*sizeInt,3*sizeInt).putInt(super.getWorker());
         ByteBuffer.wrap(ArrayRaw,3*sizeInt,4*sizeInt).putInt(getLongitudPaquete());
+        ByteBuffer.wrap(ArrayRaw,4*sizeInt,5*sizeInt).putInt(getPaqueteFinal());
         System.arraycopy(datos,0,ArrayRaw,sizeCabecera, datos.length);
         return  ArrayRaw;
     }
@@ -47,6 +50,8 @@ public class Paquete  extends Trama{
         System.arraycopy(datos,0,auxDatos,0,getLongitudPaquete());
         return auxDatos;
     }
+    public void setPaquteFinal(int f){ paquteFinal = f; }
+    public int getPaqueteFinal(){return paquteFinal;}
     public void setDatos(byte[] datos) { this.datos = datos; }
 
     public static int getSizeCabecera() { return sizeCabecera; }
