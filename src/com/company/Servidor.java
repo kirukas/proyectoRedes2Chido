@@ -76,8 +76,10 @@ public class Servidor {
         try {
             servidor = new ServerSocket(puerto);
             acceparConexion = true;
-            if(conexionMirror.inicalizaConexion())System.out.println("Conectado con su espejo...");
-            else System.out.println("No se conecto con su espejo !!");
+            if(isWorker){
+                if(conexionMirror.inicalizaConexion())System.out.println("Conectado con su espejo...");
+                else System.out.println("No se conecto con su espejo !!");
+            }
             while (acceparConexion){
                 Socket conexion = servidor.accept();
                 conexion.setSoLinger(true,10);
