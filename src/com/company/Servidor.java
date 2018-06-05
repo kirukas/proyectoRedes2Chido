@@ -48,6 +48,7 @@ public class Servidor {
            salida.write(p.castByteArray());
            salida.flush();
            if(p.getPaqueteFinal() == 1){
+               servidorActivo = false;
                salida.close();
                conexionServidor.close();
            }
@@ -66,7 +67,6 @@ public class Servidor {
             case 0:
                 System.out.println("Guardando los datos...");
                 respaldarDatos(paquete);
-                if(paquete.getPaqueteFinal() == 1)servidorActivo = false;
                 if(isWorker) respaldarEspejos(paquete);
                 break;
             case  1:
