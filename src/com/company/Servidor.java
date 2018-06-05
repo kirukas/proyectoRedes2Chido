@@ -15,14 +15,21 @@ public class Servidor {
     private ServerSocket servidor;
     private  boolean servidorActivo, acceparConexion;
     private boolean isWorker;
+    private  int numeroServidor;
     private String[] espejo = new String[3];
-
-    public Servidor(int tipoServidor){
-        if(tipoServidor == 0) isWorker = true;
-        else  isWorker = false;
+    private conexionToServer conexionMirror;
+    public Servidor(int tipoServidor, int numeroServidor){
         espejo[0] = "192.168.31.2";
         espejo[1] = "192.168.31.3";
         espejo[2] = "192.168.31.4";
+        this.numeroServidor = numeroServidor;
+        if(tipoServidor == 0){
+            isWorker = true;
+            conexionMirror = new conexionToServer(espejo[numeroServidor],puerto);
+        }
+        else  isWorker = false;
+
+
     }
     private void respaldarDatos(Paquete p){
         try {
@@ -41,26 +48,10 @@ public class Servidor {
             return false;
         }
     }
-    private void respaldarEspejos(Paquete p){
-        try {
-            Socket conexionServidor = new Socket(espejo[p.getWorker()], puerto);
-           OutputStream  salida = conexionServidor.getOutputStream();
-           salida.write(p.castByteArray());
-           salida.flush();
-           if(p.getPaqueteFinal() == 1){
-               servidorActivo = false;
-               salida.close();
-               conexionServidor.close();
-               System.out.println("Cerrando conexion con el espejo ...");
-           }
-        } catch (UnknownHostException e){
-            //System.out.println(e);
-            System.out.println("Servidor no encontrado..." );
-
-        }
-        catch (IOException e) {
-            System.out.println("Error de conexion con la maquina "+servidor.getInetAddress()+"\nRevisar el servicio...");
-            //  e.printStackTrace();
+    public  void respaldarEnEspejo(Paquete p){
+        if(conexionMirror.getConexionServer().isConnected()){
+            conexionMirror.enviarPaqute(p);
+            return;
         }
     }
     private void clasificaPaquete(Paquete paquete){
@@ -68,7 +59,8 @@ public class Servidor {
             case 0:
                 System.out.println("Guardando los datos...");
                 respaldarDatos(paquete);
-                if(isWorker) respaldarEspejos(paquete);
+                if(isWorker) respaldarEnEspejo(paquete);
+                if(paquete.getPaqueteFinal() == 1) servidorActivo = false;
                 break;
             case  1:
                 if(buscarArchivo(paquete.getHashCode())); System.out.println("El archivo existe ...");
@@ -84,6 +76,8 @@ public class Servidor {
         try {
             servidor = new ServerSocket(puerto);
             acceparConexion = true;
+            if(conexionMirror.inicalizaConexion())System.out.println("Conectado con su espejo...");
+            else System.out.println("No se conecto con su espejo !!");
             while (acceparConexion){
                 Socket conexion = servidor.accept();
                 conexion.setSoLinger(true,10);
@@ -91,7 +85,6 @@ public class Servidor {
                 InputStream  flujoEntrada = conexion.getInputStream();
                 OutputStream flujoSalida = conexion.getOutputStream();
                 servidorActivo = true;
-                int aux;
                 while (servidorActivo){
                     if( flujoEntrada.available() > 0){
                         System.out.println("Se recivio una peticion ..");
@@ -118,12 +111,19 @@ public class Servidor {
         }
     }
     public static void main(String[] args){
-        int tipoServidor;
+        int tipoServidor, numerServidor;
+
         if((tipoServidor = Integer.parseInt(args[0])) > 1) {
             System.err.println("Error tipo de servidor desconocido ...");
             System.exit(0);
         }
-        Servidor servidor = new Servidor(tipoServidor);
+        if((numerServidor = Integer.parseInt(args[1])) > 2) {
+            System.err.println("Solo existen 3  servidores ...");
+            System.exit(0);
+        }
+        Servidor servidor = new Servidor(tipoServidor, numerServidor);
+       // if(servidor.conexionMirror.inicalizaConexion());System.out.println("Conectando con sys ");
         servidor.escucharPeticiones();
+
     }
 }

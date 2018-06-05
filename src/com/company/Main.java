@@ -28,9 +28,6 @@ public class Main {
                 cliente.enviarArchivo();
             }
 
-
-
-
         } catch (ArchivoNoExiste archivoNoExiste) {
             archivoNoExiste.printStackTrace();
             System.exit(0);
