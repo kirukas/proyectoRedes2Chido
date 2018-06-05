@@ -51,6 +51,7 @@ public class Servidor {
                servidorActivo = false;
                salida.close();
                conexionServidor.close();
+               System.out.println("Cerrando conexion con el espejo ...");
            }
         } catch (UnknownHostException e){
             //System.out.println(e);
