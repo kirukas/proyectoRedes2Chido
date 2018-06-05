@@ -13,11 +13,15 @@ public class Servidor {
     private static final String ruta = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
     private ServerSocket servidor;
     private  boolean servidorActivo, acceparConexion;
-
     private boolean isWorker;
+    private String[] espejo = new String[3];
+
     public Servidor(int tipoServidor){
         if(tipoServidor == 0) isWorker = true;
         else  isWorker = false;
+        espejo[0] = "192.168.31.2";
+        espejo[1] = "192.168.31.3";
+        espejo[2] = "192.168.31.4";
     }
     private void respaldarDatos(Paquete p){
         try {
@@ -36,13 +40,38 @@ public class Servidor {
             return false;
         }
     }
-    private void clasificaPaquete(Paquete p){
-        switch (p.getTipoTrama()){
+    private void respaldarEspejos(Paquete p){
+        try {
+            Socket conexionServidor = new Socket(espejo[p.getWorker()], puerto);
+           OutputStream  salida = conexionServidor.getOutputStream();
+           salida.write(p.castByteArray());
+           salida.flush();
+           if(p.getPaqueteFinal() == 1){
+               salida.close();
+               conexionServidor.close();
+           }
+        } catch (UnknownHostException e){
+            //System.out.println(e);
+            System.out.println("Servidor no encontrado..." );
+
+        }
+        catch (IOException e) {
+            System.out.println("Error de conexion con la maquina "+servidor.getInetAddress()+"\nRevisar el servicio...");
+            //  e.printStackTrace();
+        }
+    }
+    private void clasificaPaquete(Paquete paquete){
+        switch (paquete.getTipoTrama()){
             case 0:
-                respaldarDatos(p);
+                System.out.println("Respaldando los datos...");
+                respaldarDatos(paquete);
+                if(paquete.getPaqueteFinal() == 1)servidorActivo = false;
+                if(isWorker) respaldarEspejos(paquete);
                 break;
             case  1:
+                if(buscarArchivo(paquete.getHashCode())); System.out.println("El archivo existe ...");
                 break;
+
             default:System.out.println("tipo de Paquete desconocido");
         }
     }
@@ -67,22 +96,8 @@ public class Servidor {
                         flujoEntrada.read(ArrayByte);
                         Paquete paquete = new Paquete(ArrayByte);
                         System.out.println("info de la trama "+paquete.toString());
-                        switch (paquete.getTipoTrama()){
-                            case 0:
-                                System.out.println("Respaldando los datos...");
-                                respaldarDatos(paquete);
-                                if(paquete.getPaqueteFinal() == 1)servidorActivo = false;
-
-                                break;
-                            case  1:
-                                if(buscarArchivo(paquete.getHashCode())); System.out.println("El archivo existe ...");
-                                break;
-
-                            default:System.out.println("tipo de Paquete desconocido");
-                        }
-
+                        clasificaPaquete(paquete);
                     }
-                    //
                 }
                 flujoEntrada.close();
                 System.out.println("Cerrando conexion con "+servidor.getInetAddress());

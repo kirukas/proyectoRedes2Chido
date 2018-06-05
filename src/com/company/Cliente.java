@@ -19,7 +19,7 @@ public class Cliente {
     private InputStream entrada;
     private OutputStream salida;
 
-    public Cliente(String ruta,String archivoOriginal , String ip){
+    public Cliente(String ruta,String archivoOriginal , String ip, int worker){
         try {
             fragmento = new Archivo(ruta);
         } catch (ArchivoNoExiste archivoNoExiste) {
@@ -27,7 +27,7 @@ public class Cliente {
         }
         IP = ip;
         longitudArchivo = (int)fragmento.getSize();
-        datos = new Paquete(0,archivoOriginal.hashCode(),123);
+        datos = new Paquete(0,archivoOriginal.hashCode(),worker);
         longitudMaximaPaquete = datos.getLongitudMaximoPaquete();
         de = 0;
     }
