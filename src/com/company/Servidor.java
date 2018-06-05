@@ -10,7 +10,8 @@ import java.net.UnknownHostException;
 public class Servidor {
     private  static  final int  puerto = 2121;
     private  static final int longitudTrama = 1024;
-    private static final String ruta = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
+    //private static final String ruta = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
+    private static final String ruta = "/home/redes/respaldo";
     private ServerSocket servidor;
     private  boolean servidorActivo, acceparConexion;
     private boolean isWorker;
@@ -63,7 +64,7 @@ public class Servidor {
     private void clasificaPaquete(Paquete paquete){
         switch (paquete.getTipoTrama()){
             case 0:
-                System.out.println("Respaldando los datos...");
+                System.out.println("Guardando los datos...");
                 respaldarDatos(paquete);
                 if(paquete.getPaqueteFinal() == 1)servidorActivo = false;
                 if(isWorker) respaldarEspejos(paquete);

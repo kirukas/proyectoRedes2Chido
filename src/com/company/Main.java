@@ -24,7 +24,7 @@ public class Main {
             fragmento = f.getRutasFragmentos();
             prueba.close();
             for (int i = 0; i < numeroWorkes; i++) {
-                cliente = new Cliente(fragmento[i],prueba.getNombre(),ip,i);
+                cliente = new Cliente(fragmento[i],prueba.getNombre(),workers[i],i);
                 cliente.enviarArchivo();
             }
 
