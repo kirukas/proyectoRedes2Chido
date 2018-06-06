@@ -1,11 +1,7 @@
 package com.company;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
-
 public class Cliente {
     private String  rutaArchivo;
     private String IP;

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aa6711d7-bcd1-4ff6-959a-84ccca02608c" name="Default" comment="" />
+    <list default="true" id="aa6711d7-bcd1-4ff6-959a-84ccca02608c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/com/company/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/ConstructorArchivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/ConstructorArchivo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/InterfazCliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/InterfazCliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -11,23 +16,23 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5472868">
+    <splitter split-orientation="horizontal" split-proportion="0.83488375">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="18" column="54" lean-forward="true" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+                <state relative-caret-position="170">
+                  <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="InterfazCliente.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="InterfazCliente.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/company/InterfazCliente.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="289">
-                  <caret line="17" column="69" selection-start-line="17" selection-start-column="69" selection-end-line="17" selection-end-column="69" />
+                <state relative-caret-position="204">
+                  <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
                 </state>
               </provider>
             </entry>
@@ -35,8 +40,8 @@
           <file leaf-file-name="Cliente.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/company/Cliente.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="215">
-                  <caret line="77" column="5" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
+                <state relative-caret-position="-493">
+                  <caret line="1" selection-start-line="1" selection-end-line="1" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -47,8 +52,8 @@
           <file leaf-file-name="ConstructorArchivo.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/company/ConstructorArchivo.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="35" column="29" lean-forward="true" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+                <state relative-caret-position="680">
+                  <caret line="44" column="21" lean-forward="true" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
                 </state>
               </provider>
             </entry>
@@ -56,7 +61,7 @@
           <file leaf-file-name="Fragmentador.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/company/Fragmentador.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
+                <state relative-caret-position="255">
                   <caret line="27" column="59" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
                 </state>
               </provider>
@@ -78,8 +83,8 @@
           <file leaf-file-name="Servidor.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/company/Servidor.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1111">
-                  <caret line="107" column="39" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="39" />
+                <state relative-caret-position="245">
+                  <caret line="184" column="5" lean-forward="true" selection-start-line="184" selection-start-column="5" selection-end-line="184" selection-end-column="5" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -136,10 +141,10 @@
         <option value="$PROJECT_DIR$/src/com/company/Fragmentador.java" />
         <option value="$PROJECT_DIR$/src/com/company/Servidor.java" />
         <option value="$PROJECT_DIR$/src/com/company/conexionToServer.java" />
-        <option value="$PROJECT_DIR$/src/com/company/ConstructorArchivo.java" />
         <option value="$PROJECT_DIR$/src/com/company/Cliente.java" />
-        <option value="$PROJECT_DIR$/src/com/company/InterfazCliente.java" />
+        <option value="$PROJECT_DIR$/src/com/company/ConstructorArchivo.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/company/InterfazCliente.java" />
       </list>
     </option>
   </component>
@@ -266,7 +271,7 @@
       <window_info anchor="right" id="Palette&#9;" order="0" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.38317758" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.3317757" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" />
       <window_info id="Designer" order="2" />
@@ -638,13 +643,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Fragmentador.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="27" column="59" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Archivo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1870">
@@ -675,8 +673,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Servidor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1111">
-          <caret line="107" column="39" selection-start-line="107" selection-start-column="27" selection-end-line="107" selection-end-column="39" />
+        <state relative-caret-position="245">
+          <caret line="184" column="5" lean-forward="true" selection-start-line="184" selection-start-column="5" selection-end-line="184" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -685,32 +683,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/ConstructorArchivo.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="44" column="21" lean-forward="true" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Fragmentador.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="35" column="29" lean-forward="true" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+          <caret line="27" column="59" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Cliente.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="77" column="5" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
+        <state relative-caret-position="-493">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/InterfazCliente.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="69" selection-start-line="17" selection-start-column="69" selection-end-line="17" selection-end-column="69" />
+        <state relative-caret-position="170">
+          <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/InterfazCliente.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="54" lean-forward="true" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+        <state relative-caret-position="204">
+          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
         </state>
       </provider>
     </entry>

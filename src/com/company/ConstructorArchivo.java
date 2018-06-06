@@ -8,17 +8,21 @@ public class ConstructorArchivo {
     private conexionToServer conexionServidor;
     private String rutaFragmento = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
     private  int puerto = 2121;
+    private  String rutaArchivo;
     private Paquete respuesta;
     public ConstructorArchivo(String nombreArchivo,String ip, int worker){
         peticionArchivo = new Paquete(1,nombreArchivo.hashCode(),worker,1);
         conexionServidor = new conexionToServer(ip,puerto);
         conexionServidor.inicalizaConexion();
+
     }
     public boolean PaquteFinal(Paquete p){
         if(p.getPaqueteFinal() == 1)return true;
         else return false;
     }
-    public void reconstruirArchivo(int numFragmento){
+
+    public String getRutaFragmento() { return rutaArchivo; }
+    public void getFragmento(int numFragmento){
         setPeticionArchivo();
         boolean esPaqueteFinal = false;
         if(conexionServidor.getConexionServer().isConnected()){
@@ -26,7 +30,8 @@ public class ConstructorArchivo {
             if(conexionServidor.enviarPaqute(peticionArchivo)){
                 System.out.println("Obteniendo fragmento "+numFragmento+" ...");
                 try {
-                    reconstruido = new Archivo(rutaFragmento+numFragmento,"rw");
+                    rutaArchivo = rutaFragmento+"/"+numFragmento;
+                    reconstruido = new Archivo(rutaArchivo,"rw");
                     while(!esPaqueteFinal){
                      try {
                             if((conexionServidor.getFlujoEntrada().available()) > 0){

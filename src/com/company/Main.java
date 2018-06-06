@@ -17,8 +17,8 @@ public class Main {
         espejo[1] = "192.168.31.3";
         espejo[2] = "192.168.31.4";*/
         InterfazCliente interfaz = new InterfazCliente();
-      // interfaz.segmentarArchivo(rutaArchivo);
-        interfaz.getArchivo("texto.txt");
+       interfaz.segmentarArchivo(rutaArchivo);
+       // interfaz.getArchivo("texto.txt");
 /*        Cliente cliente;
 
         try {
