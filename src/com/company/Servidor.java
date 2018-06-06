@@ -10,8 +10,8 @@ import java.net.UnknownHostException;
 public class Servidor {
     private  static  final int  puerto = 2121;
     private  static final int longitudTrama = 1024;
-    private static final String ruta = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
-    //private static final String ruta = "/home/redes/respaldo";
+    //private static final String ruta = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
+    private static final String ruta = "/home/redes/respaldo";
     private ServerSocket servidor;
     private  boolean servidorActivo, acceparConexion;
     private boolean isWorker;
@@ -50,6 +50,7 @@ public class Servidor {
         }
     }
     private void enviarPaquete(){
+        System.out.println("Datos trama a enviar "+datos.toString());
         try {
             flujoSalida.write(datos.castByteArray());
             flujoSalida.flush();
@@ -67,9 +68,10 @@ public class Servidor {
         de = 0;
         try {
             fragmento = new Archivo(ruta+"/"+hashCode);
-            longitudArchivo = (int)fragmento.getSize();
-            longitudMaximaPaquete = longitudTrama;
+            System.out.println("Enviando el archivo ...");
             datos = new Paquete(0,hashCode,numeroServidor);
+            longitudArchivo = (int)fragmento.getSize();
+            longitudMaximaPaquete = datos.getLongitudMaximoPaquete();// longitud de la trama - cabecera de la trama
                 hasta = longitudMaximaPaquete;
                 if(hasta > longitudArchivo) {
                     System.out.println("Solo se enviara un paquete !!");
@@ -94,7 +96,7 @@ public class Servidor {
                     datos.setPaquteFinal(1);
                     enviarPaquete();
                  }
-
+                 System.out.println("Archivo enviado con exito ...");
         } catch (ArchivoNoExiste archivoNoExiste) {
             System.err.println("El archivo no existe!!");
              archivoNoExiste.printStackTrace();
@@ -120,7 +122,7 @@ public class Servidor {
                 enviarArchivo(paquete.getHashCode());
                 break;
 
-            default:System.out.println("tipo de Paquete desconocido");
+            default:System.out.println("tipo de Paquete desconocido...");
         }
     }
     public void escucharPeticiones(){
@@ -139,6 +141,7 @@ public class Servidor {
                 conexion.setSoLinger(true,10);
                 System.out.println("Aceptando conexion con "+servidor.getInetAddress().getHostAddress());
                 InputStream  flujoEntrada = conexion.getInputStream();
+                flujoSalida = conexion.getOutputStream();
                 servidorActivo = true;
                 while (servidorActivo){
                     if( flujoEntrada.available() > 0){

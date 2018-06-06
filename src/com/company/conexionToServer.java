@@ -23,7 +23,7 @@ public class conexionToServer {
             conexionServer = new Socket(ip,puerto);
             conexionServer.setSoLinger(true,10);
             flujoSalida = conexionServer.getOutputStream();
-            //flujoEntrada = conexionServer.getInputStream();
+            flujoEntrada = conexionServer.getInputStream();
             return true;
         } catch (UnknownHostException e){
             //System.out.println(e);
@@ -39,8 +39,10 @@ public class conexionToServer {
 
     public OutputStream getFlujoSalida() { return flujoSalida; }
 
+    public InputStream getFlujoEntrada() { return flujoEntrada; }
+
     public Socket getConexionServer() { return conexionServer; }
-    public byte[] recive(){
+    public byte[] leer(){
         byte[] byteArray = new byte[longuitudTrama];
         try {
             flujoEntrada.read(byteArray);
