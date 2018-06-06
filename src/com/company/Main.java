@@ -4,20 +4,23 @@ public class Main {
 
     public static void main(String[] args) {
         String rutaArchivo = "/home/enrique/Documentos/texto.txt";
-        Archivo prueba = null;
+       /* Archivo prueba = null;
         String[] fragmento;
         int numeroWorkes = 3;
         String ip = "127.0.0.1";
         String[]  workers = new String[numeroWorkes];
-        workers[0] = "127.0.0.1";//"192.168.30.2";
+        workers[0] = "127.0.0.1"; //"192.168.30.2";
         workers[1] = "192.168.30.3";
         workers[2] = "192.168.30.4";
         String[] espejo = new String[numeroWorkes];
         espejo[0] = "192.168.31.2";
         espejo[1] = "192.168.31.3";
-        espejo[2] = "192.168.31.4";
-        Cliente cliente;
-        /*
+        espejo[2] = "192.168.31.4";*/
+        InterfazCliente interfaz = new InterfazCliente();
+      // interfaz.segmentarArchivo(rutaArchivo);
+        interfaz.getArchivo("texto.txt");
+/*        Cliente cliente;
+
         try {
             prueba = new Archivo(rutaArchivo);
             Fragmentador f = new Fragmentador(prueba,numeroWorkes);
@@ -36,8 +39,9 @@ public class Main {
             e.printStackTrace();
         }*/
 
-        ConstructorArchivo  file = new ConstructorArchivo("texto.txt",workers[0],0);
-        file.reconstruirArchivo(0);
+/* */
+    /*  ConstructorArchivo  file = new ConstructorArchivo("texto.txt",espejo[0],0);
+        file.reconstruirArchivo(0);*/
 
     }
 }
