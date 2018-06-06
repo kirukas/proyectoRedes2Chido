@@ -26,7 +26,6 @@ public class Fragmentador {
                 }
             try {
                 String ruta = file.getRuta()+"fragmento"+i;
-
                 Archivo copia = new Archivo(ruta,"rw");
                 System.out.println("El archivo "+ i+" guarda de :  "+de+"  hasta :"+Acopiar);
                 copia.escribir(file.getDatos(de,Acopiar));

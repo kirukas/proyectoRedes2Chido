@@ -4,7 +4,14 @@ public class ConstructorArchivo {
     private Paquete peticionArchivo;
     private Archivo reconstruido;
     private conexionToServer conexionServidor;
+    private  int puerto = 2121;
+    public ConstructorArchivo(String nombreArchivo,String ip, int worker){
+        peticionArchivo = new Paquete(1,nombreArchivo.hashCode(),worker,1);
+        conexionServidor = new conexionToServer(ip,puerto);
+        conexionServidor.inicalizaConexion();
+    }
     public void reconstruirArchivo(){
+        setPeticionArchivo();
         if(conexionServidor.getConexionServer().isConnected()){
             System.out.println("Peticion  de Archivo:"+peticionArchivo.toString());
             if(conexionServidor.enviarPaqute(peticionArchivo)){
@@ -19,9 +26,6 @@ public class ConstructorArchivo {
         peticionArchivo.setPaquteFinal(1);
         peticionArchivo.setDatos(ArrayNulo);
     }
-    public ConstructorArchivo(String nombreArchivo, int worker){
-        peticionArchivo = new Paquete(1,nombreArchivo.hashCode(),worker,1);
-        conexionServidor.inicalizaConexion();
-    }
+
 
 }

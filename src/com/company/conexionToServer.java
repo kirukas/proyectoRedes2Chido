@@ -40,7 +40,7 @@ public class conexionToServer {
     public OutputStream getFlujoSalida() { return flujoSalida; }
 
     public Socket getConexionServer() { return conexionServer; }
-    public byte[] recivir(){
+    public byte[] recive(){
         byte[] byteArray = new byte[longuitudTrama];
         try {
             flujoEntrada.read(byteArray);

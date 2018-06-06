@@ -7,7 +7,7 @@ public class Main {
         Archivo prueba = null;
         String[] fragmento;
         int numeroWorkes = 3;
-        String ip = "192.168.1.138";
+        String ip = "127.0.0.1";
         String[]  workers = new String[numeroWorkes];
         workers[0] = "192.168.30.2";
         workers[1] = "192.168.30.3";
@@ -34,6 +34,8 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        /*ConstructorArchivo  file = new ConstructorArchivo("texto.txt",ip,0);
+        file.reconstruirArchivo();*/
 
     }
 }

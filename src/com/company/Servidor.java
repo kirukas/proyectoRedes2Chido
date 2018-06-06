@@ -10,8 +10,8 @@ import java.net.UnknownHostException;
 public class Servidor {
     private  static  final int  puerto = 2121;
     private  static final int longitudTrama = 1024;
-    //private static final String ruta = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
-    private static final String ruta = "/home/redes/respaldo";
+    private static final String ruta = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
+    //private static final String ruta = "/home/redes/respaldo";
     private ServerSocket servidor;
     private  boolean servidorActivo, acceparConexion;
     private boolean isWorker;
@@ -62,40 +62,43 @@ public class Servidor {
         }
     }
     private void enviarArchivo(int hashCode){
+        System.out.println("Buscando archivo...");
         int de,hasta,longitudMaximaPaquete,longitudArchivo;
-        longitudArchivo = (int)fragmento.getSize();
-        longitudMaximaPaquete = longitudTrama;
         de = 0;
-        datos = new Paquete(0,hashCode,numeroServidor);
         try {
             fragmento = new Archivo(ruta+"/"+hashCode);
-            hasta = longitudMaximaPaquete;
-            if(hasta > longitudArchivo) {
-                System.out.println("Solo se enviara un paquete !!");
-                setPaquete(de, hasta);
-                datos.setPaquteFinal(1);
-                enviarPaquete();
-            }else{
-                boolean segmentarEnPaquetes = true;
-                while (segmentarEnPaquetes){
-                    System.out.println("de "+de+" hasta "+hasta);
-                    setPaquete(de,hasta);
-                    datos.setPaquteFinal(0);
+            longitudArchivo = (int)fragmento.getSize();
+            longitudMaximaPaquete = longitudTrama;
+            datos = new Paquete(0,hashCode,numeroServidor);
+                hasta = longitudMaximaPaquete;
+                if(hasta > longitudArchivo) {
+                    System.out.println("Solo se enviara un paquete !!");
+                    setPaquete(de, hasta);
+                    datos.setPaquteFinal(1);
                     enviarPaquete();
-                    de = hasta;
-                    if((hasta + longitudMaximaPaquete) > longitudArchivo){
-                        hasta = longitudArchivo;
-                        segmentarEnPaquetes = false;
-                    }else hasta += longitudMaximaPaquete;
-                }
-                System.out.println("de "+de+" hasta "+hasta);
-                setPaquete(de,hasta);
-                datos.setPaquteFinal(1);
-                enviarPaquete();
-            }
+                }else{
+                    boolean segmentarEnPaquetes = true;
+                    while (segmentarEnPaquetes){
+                        System.out.println("de "+de+" hasta "+hasta);
+                        setPaquete(de,hasta);
+                        datos.setPaquteFinal(0);
+                        enviarPaquete();
+                        de = hasta;
+                        if((hasta + longitudMaximaPaquete) > longitudArchivo){
+                            hasta = longitudArchivo;
+                            segmentarEnPaquetes = false;
+                        }else hasta += longitudMaximaPaquete;
+                     }
+                     System.out.println("de "+de+" hasta "+hasta);
+                    setPaquete(de,hasta);
+                    datos.setPaquteFinal(1);
+                    enviarPaquete();
+                 }
 
         } catch (ArchivoNoExiste archivoNoExiste) {
-            archivoNoExiste.printStackTrace();
+            System.err.println("El archivo no existe!!");
+             archivoNoExiste.printStackTrace();
+            return;
         }
     }
     public  void respaldarEnEspejo(Paquete p){
