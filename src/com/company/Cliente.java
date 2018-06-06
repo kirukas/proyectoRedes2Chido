@@ -18,7 +18,8 @@ public class Cliente {
     private Socket conexionServidor;
     private InputStream entrada;
     private OutputStream salida;
-
+    private conexionToServer toServer;
+    // constructor para archivos fragmentados
     public Cliente(String ruta,String archivoOriginal , String ip, int worker){
         try {
             fragmento = new Archivo(ruta);
@@ -29,6 +30,8 @@ public class Cliente {
         longitudArchivo = (int)fragmento.getSize();
         datos = new Paquete(0,archivoOriginal.hashCode(),worker);
         longitudMaximaPaquete = datos.getLongitudMaximoPaquete();
+        toServer = new conexionToServer(ip,puerto);
+        toServer.inicalizaConexion();
         de = 0;
     }
 
@@ -41,7 +44,38 @@ public class Cliente {
             archivoNoExiste.printStackTrace();
         }
     }
+
     public void enviarArchivo(){
+        if(toServer.getConexionServer().isConnected()){
+            hasta = longitudMaximaPaquete;
+            if(hasta > longitudArchivo) {
+                System.out.println("Solo se enviara un paquete !!");
+                setPaquete(de, hasta);
+                datos.setPaquteFinal(1);
+                toServer.enviarPaqute(datos);
+            }else{
+                boolean segmentarEnPaquetes = true;
+                while (segmentarEnPaquetes){
+                    System.out.println("de "+de+" hasta "+hasta);
+                    setPaquete(de,hasta);
+                    datos.setPaquteFinal(0);
+                    toServer.enviarPaqute(datos);
+                    de = hasta;
+                    if((hasta + longitudMaximaPaquete) > longitudArchivo){
+                        hasta = longitudArchivo;
+                        segmentarEnPaquetes = false;
+                    }else hasta += longitudMaximaPaquete;
+                }
+                System.out.println("de "+de+" hasta "+hasta);
+                setPaquete(de,hasta);
+                datos.setPaquteFinal(1);
+                toServer.enviarPaqute(datos);
+            }
+
+        }else System.out.println("Error de conexion ...");
+
+    }
+   /* public void enviarArchivo(){
         System.out.println("Enviando el Archivo ...");
         try {
             conexionServidor = new Socket(IP,puerto);

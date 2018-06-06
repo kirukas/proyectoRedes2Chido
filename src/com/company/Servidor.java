@@ -18,6 +18,9 @@ public class Servidor {
     private  int numeroServidor;
     private String[] espejo = new String[3];
     private conexionToServer conexionMirror;
+    private OutputStream flujoSalida;
+    private Paquete datos;
+    private Archivo fragmento;
     public Servidor(int tipoServidor, int numeroServidor){
         espejo[0] = "192.168.31.2";
         espejo[1] = "192.168.31.3";
@@ -28,8 +31,6 @@ public class Servidor {
             conexionMirror = new conexionToServer(espejo[numeroServidor],puerto);
         }
         else  isWorker = false;
-
-
     }
     private void respaldarDatos(Paquete p){
         try {
@@ -39,13 +40,62 @@ public class Servidor {
             archivoNoExiste.printStackTrace();
         }
     }
-    private boolean buscarArchivo(int hashCode){
+    private  void setPaquete(int de, int hasta){
+        datos.setLongitudPaquete(hasta-de);
         try {
-            Archivo file = new Archivo(ruta+"/"+hashCode);
-            return true;
+            datos.setDatos(fragmento.getDatos(de, hasta));
+
         } catch (ArchivoNoExiste archivoNoExiste) {
             archivoNoExiste.printStackTrace();
-            return false;
+        }
+    }
+    private void enviarPaquete(){
+        try {
+            flujoSalida.write(datos.castByteArray());
+            flujoSalida.flush();
+            if(datos.getPaqueteFinal() == 1){
+                flujoSalida.close();
+                servidorActivo = false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void enviarArchivo(int hashCode){
+        int de,hasta,longitudMaximaPaquete,longitudArchivo;
+        longitudArchivo = (int)fragmento.getSize();
+        longitudMaximaPaquete = longitudTrama;
+        de = 0;
+        datos = new Paquete(0,hashCode,numeroServidor);
+        try {
+            fragmento = new Archivo(ruta+"/"+hashCode);
+            hasta = longitudMaximaPaquete;
+            if(hasta > longitudArchivo) {
+                System.out.println("Solo se enviara un paquete !!");
+                setPaquete(de, hasta);
+                datos.setPaquteFinal(1);
+                enviarPaquete();
+            }else{
+                boolean segmentarEnPaquetes = true;
+                while (segmentarEnPaquetes){
+                    System.out.println("de "+de+" hasta "+hasta);
+                    setPaquete(de,hasta);
+                    datos.setPaquteFinal(0);
+                    enviarPaquete();
+                    de = hasta;
+                    if((hasta + longitudMaximaPaquete) > longitudArchivo){
+                        hasta = longitudArchivo;
+                        segmentarEnPaquetes = false;
+                    }else hasta += longitudMaximaPaquete;
+                }
+                System.out.println("de "+de+" hasta "+hasta);
+                setPaquete(de,hasta);
+                datos.setPaquteFinal(1);
+                enviarPaquete();
+            }
+
+        } catch (ArchivoNoExiste archivoNoExiste) {
+            archivoNoExiste.printStackTrace();
         }
     }
     public  void respaldarEnEspejo(Paquete p){
@@ -63,7 +113,8 @@ public class Servidor {
                 if(paquete.getPaqueteFinal() == 1) servidorActivo = false;
                 break;
             case  1:
-                if(buscarArchivo(paquete.getHashCode())); System.out.println("El archivo existe ...");
+                System.out.println("Peticion de un archivo ...");
+                enviarArchivo(paquete.getHashCode());
                 break;
 
             default:System.out.println("tipo de Paquete desconocido");
@@ -85,7 +136,6 @@ public class Servidor {
                 conexion.setSoLinger(true,10);
                 System.out.println("Aceptando conexion con "+servidor.getInetAddress().getHostAddress());
                 InputStream  flujoEntrada = conexion.getInputStream();
-                OutputStream flujoSalida = conexion.getOutputStream();
                 servidorActivo = true;
                 while (servidorActivo){
                     if( flujoEntrada.available() > 0){
@@ -97,9 +147,8 @@ public class Servidor {
                     }
                 }
                 flujoEntrada.close();
-                System.out.println("Cerrando conexion con "+servidor.getInetAddress());
                 conexion.close();
-
+                System.out.println("Cerrando la conexion...");
             }
         }  catch (UnknownHostException e){
             //System.out.println(e);
