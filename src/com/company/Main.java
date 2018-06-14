@@ -9,7 +9,7 @@ public class Main {
         int numeroWorkes = 3;
         String ip = "127.0.0.1";
         String[]  workers = new String[numeroWorkes];
-        workers[0] = "192.168.30.2";
+        workers[0] = "192.168.30.2";//"127.0.0.1";//
         workers[1] = "192.168.30.3";
         workers[2] = "192.168.30.4";
         String[] espejo = new String[numeroWorkes];
@@ -21,7 +21,7 @@ public class Main {
        // interfaz.getArchivo("texto.txt");
         Cliente cliente;
 
-        try {
+  /*      try {
             prueba = new Archivo(rutaArchivo);
             Fragmentador f = new Fragmentador(prueba,numeroWorkes);
             f.segmentar();
@@ -40,8 +40,8 @@ public class Main {
         }
 
 /* */
-    /*  ConstructorArchivo  file = new ConstructorArchivo("texto.txt",espejo[0],0);
-        file.reconstruirArchivo(0);*/
-
+      InterfazCliente i = new InterfazCliente();
+     // i.segmentarArchivo(rutaArchivo);
+      i.getArchivo("texto.txt");
     }
 }

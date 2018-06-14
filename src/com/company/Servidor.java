@@ -10,8 +10,8 @@ import java.net.UnknownHostException;
 public class Servidor {
     private  static  final int  puerto = 2121;
     private  static final int longitudTrama = 1024;
-    //private static final String ruta = "/home/enrique/redes/respaldo";
-    private static final String ruta = "/home/redes/respaldo";
+    private static final String ruta = "/home/enrique/redes/respaldo";
+   // private static final String ruta = "/home/redes/respaldo";
     private ServerSocket servidor;
     private  boolean servidorActivo, acceparConexion;
     private boolean isWorker;
@@ -114,7 +114,7 @@ public class Servidor {
             case 0:
                 System.out.println("Guardando los datos...");
                 respaldarDatos(paquete);
-                if(isWorker) respaldarEnEspejo(paquete);
+                //if(isWorker) respaldarEnEspejo(paquete);/// respalda en su espejo
                 if(paquete.getPaqueteFinal() == 1) servidorActivo = false;
                 break;
             case  1:
@@ -132,10 +132,10 @@ public class Servidor {
         try {
             servidor = new ServerSocket(puerto);
             acceparConexion = true;
-            if(isWorker){
+          /*  if(isWorker){
                 if(conexionMirror.inicalizaConexion())System.out.println("Conectado con su espejo...");
                 else System.out.println("No se conecto con su espejo !!");
-            }
+            }*/
             while (acceparConexion){
                 Socket conexion = servidor.accept();
                 conexion.setSoLinger(true,10);
@@ -179,7 +179,7 @@ public class Servidor {
             System.exit(0);
         }
         Servidor servidor = new Servidor(tipoServidor, numerServidor);
-       // if(servidor.conexionMirror.inicalizaConexion());System.out.println("Conectando con sys ");
+      // if(servidor.conexionMirror.inicalizaConexion());System.out.println("Conectando con sys ");
         servidor.escucharPeticiones();
 
     }

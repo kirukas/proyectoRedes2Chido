@@ -6,7 +6,7 @@ public class ConstructorArchivo {
     private Paquete peticionArchivo;
     private Archivo reconstruido;
     private conexionToServer conexionServidor;
-    private String rutaFragmento = "/home/enrique/Documentos/Redes2/ARCHIVOSRECONSTRUIDOS";
+    private String rutaFragmento = "/home/enrique/redes/respaldo";
     private  int puerto = 2121;
     private  String rutaArchivo;
     private Paquete respuesta;

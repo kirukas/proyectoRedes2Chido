@@ -18,7 +18,7 @@ public class InterfazCliente {
         espejo[2] = "192.168.31.4";
         ConstructorArchivo[] fragmento = new ConstructorArchivo[numeroWorkes];
         for (int i = 0; i < workers.length ; i++) {
-            fragmento[i] = new ConstructorArchivo(archivo,espejo[i],i);
+            fragmento[i] = new ConstructorArchivo(archivo,workers[i],i);
             fragmento[i].getFragmento(i);
             rutaFragmento[i] = fragmento[i].getRutaFragmento();
         }
@@ -57,7 +57,7 @@ public class InterfazCliente {
             fragmento = f.getRutasFragmentos();
             file.close();
             for (int i = 0; i < numeroWorkes; i++) {
-                cliente = new Cliente(fragmento[i], file.getNombre(),espejo[i],i);
+                cliente = new Cliente(fragmento[i], file.getNombre(),workers[i],i);
                 cliente.enviarArchivo();
             }
 

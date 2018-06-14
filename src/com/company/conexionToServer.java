@@ -21,6 +21,8 @@ public class conexionToServer {
     public boolean inicalizaConexion(){
         try {
             conexionServer = new Socket(ip,puerto);
+            conexionServer.setSoTimeout(500);// si no llega nada en 500 salta la siguente linea
+           // conexionServer.connect(conexionServer.getLocalSocketAddress(),500);
             conexionServer.setSoLinger(true,10);
             flujoSalida = conexionServer.getOutputStream();
             flujoEntrada = conexionServer.getInputStream();
