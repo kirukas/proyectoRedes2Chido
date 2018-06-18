@@ -10,8 +10,8 @@ import java.net.UnknownHostException;
 public class Servidor {
     private  static  final int  puerto = 2121;
     private  static final int longitudTrama = 1024;
-    private static final String ruta = "/home/enrique/redes/respaldo";
-   // private static final String ruta = "/home/redes/respaldo";
+   // private static final String ruta = "/home/enrique/redes/respaldo";
+    private static final String ruta = "/home/redes/respaldo";
     private ServerSocket servidor;
     private  boolean servidorActivo, acceparConexion;
     private boolean isWorker;
