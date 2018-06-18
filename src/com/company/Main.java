@@ -41,7 +41,7 @@ public class Main {
 
 /* */
       InterfazCliente i = new InterfazCliente();
-     // i.segmentarArchivo(rutaArchivo);
-      i.getArchivo("texto.txt");
+      i.segmentarArchivo(rutaArchivo);
+      //i.getArchivo("texto.txt");
     }
 }

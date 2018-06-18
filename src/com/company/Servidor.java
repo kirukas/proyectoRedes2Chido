@@ -15,6 +15,7 @@ public class Servidor {
     private ServerSocket servidor;
     private  boolean servidorActivo, acceparConexion;
     private boolean isWorker;
+    private boolean conexionEspejo;
     private  int numeroServidor;
     private String[] espejo = new String[3];
     private conexionToServer conexionMirror;
@@ -104,17 +105,29 @@ public class Servidor {
         }
     }
     public  void respaldarEnEspejo(Paquete p){
-        if(conexionMirror.getConexionServer().isConnected()){
+      /**  if(conexionMirror.getConexionServer().isConnected()){
             conexionMirror.enviarPaqute(p);
             return;
-        }
+        }*/
+      if(conexionEspejo){
+          if(conexionMirror.getConexionServer().isConnected()) {
+              conexionMirror.enviarPaqute(p);
+          }
+      }else {
+          if(conexionMirror.inicalizaConexion()) conexionEspejo = true;
+          else {
+              conexionEspejo = false;
+              System.err.println("Error al conectarse con "+espejo[numeroServidor]);
+          }
+      }
+      return;
     }
     private void clasificaPaquete(Paquete paquete){
         switch (paquete.getTipoTrama()){
             case 0:
                 System.out.println("Guardando los datos...");
                 respaldarDatos(paquete);
-                //if(isWorker) respaldarEnEspejo(paquete);/// respalda en su espejo
+                if(isWorker) respaldarEnEspejo(paquete);/// respalda en su espejo
                 if(paquete.getPaqueteFinal() == 1) servidorActivo = false;
                 break;
             case  1:
@@ -132,12 +145,10 @@ public class Servidor {
         try {
             servidor = new ServerSocket(puerto);
             acceparConexion = true;
-          /*  if(isWorker){
-                if(conexionMirror.inicalizaConexion())System.out.println("Conectado con su espejo...");
-                else System.out.println("No se conecto con su espejo !!");
-            }*/
+
             while (acceparConexion){
                 Socket conexion = servidor.accept();
+                conexionEspejo = false;
                 conexion.setSoLinger(true,10);
                 System.out.println("Aceptando conexion con "+servidor.getInetAddress().getHostAddress());
                 InputStream  flujoEntrada = conexion.getInputStream();
@@ -179,7 +190,7 @@ public class Servidor {
             System.exit(0);
         }
         Servidor servidor = new Servidor(tipoServidor, numerServidor);
-      // if(servidor.conexionMirror.inicalizaConexion());System.out.println("Conectando con sys ");
+       //if(servidor.conexionMirror.inicalizaConexion());System.out.println("conexion con sus espejo...");
         servidor.escucharPeticiones();
 
     }
